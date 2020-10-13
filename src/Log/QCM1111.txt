@@ -1,0 +1,31 @@
+(10/11/2020 at 06:12) addItem Executed on newly added item by QCM1111 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+1234 | tea | 1
+
+(10/11/2020 at 06:13) addItem Executed on newly added item by QCM1111 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+1111 | xyz | 1
+
+User QCM1111 accessed list item at QC 
+ The following message was shown : 
+ (10/11/2020 at 06:18) ID | Item Name | Qty 
+1085 | AB_Cola | 0
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 6
+
+1234 | tea | 1
+
+1012 | Coke_Zero | 28
+
+1023 | Coke_Green | 1
+
+1034 | Coke | 0
+
+1045 | Diet_Pepsi | 45
+
+1111 | xyz | 1
+
+ 
+ ------------------- 

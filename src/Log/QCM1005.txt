@@ -1,0 +1,38 @@
+User QCM1005 accessed list item at QC 
+ The following message was shown : 
+ (10/12/2020 at 04:54) ID | Item Name | Qty 
+1085 | AB_Cola | 3
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 6
+
+1012 | Coke_Zero | 28
+
+1023 | Coke_Green | 1
+
+1034 | Coke | 0
+
+1045 | Diet_Pepsi | 45
+
+ 
+ ------------------- 
+(10/12/2020 at 04:54) removeItem Executed on existing item by QCM1005 | Modifications made to Server QC | Item Deleted 
+
+User QCM1005 accessed list item at QC 
+ The following message was shown : 
+ (10/12/2020 at 04:54) ID | Item Name | Qty 
+1085 | AB_Cola | 3
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 6
+
+1012 | Coke_Zero | 28
+
+1034 | Coke | 0
+
+1045 | Diet_Pepsi | 45
+
+ 
+ ------------------- 

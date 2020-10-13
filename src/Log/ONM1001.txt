@@ -1,0 +1,32 @@
+addItem Executed on newly added item by ONM1001 | Modifications successfully made to Server ON | Updated Values 
+ ID | Item Name | Qty 
+1000 | shir | 5
+
+addItem Executed on newly added item by ONM1001 | Modifications successfully made to Server ON | Updated Values 
+ ID | Item Name | Qty 
+1000 | shirt | 2
+
+
+aaddItem Executed on newly added item by ONM1001 | Modifications successfully made to Server ON | Updated Values 
+ ID | Item Name | Qty 
+1900 | screens | 5
+
+User ONM1001 accessed list item at ON 
+ The following message was shown : 
+ ID | Item Name | Qty 
+1900 | screens | 5
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 4
+
+1085 | AB_Cola | 0
+
+1012 | Coke_Zero | 27
+
+1023 | Coke_Green | 12
+
+1034 | Coke | 13
+
+ 
+ ------------------- 

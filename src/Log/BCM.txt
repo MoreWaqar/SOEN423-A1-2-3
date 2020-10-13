@@ -1,0 +1,40 @@
+addItem Executed on newly added item by BCM | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+1234 | tea | 2
+
+addItem Executed on newly added item by BCM | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+1000 | laptop | 2
+
+addItem Executed on newly added item by BCM | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+1234 | tea | 2
+
+addItem Executed on newly added item by BCM | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+1000 | laptop | 2
+
+addItem Executed on newly added item by BCM | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+1234 | tea | 5
+
+addItem Executed on newly added item by BCM | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+1000 | laptop | 1
+
+addItem Executed on newly added item by BCM | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+1234 | tea | 2
+
+addItem Executed on newly added item by BCM | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+1000 | laptop | 1
+
+addItem Executed on newly added item by BCM | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+1234 | tea | 2
+
+addItem Executed on newly added item by BCM | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+1000 | laptop | 1
+

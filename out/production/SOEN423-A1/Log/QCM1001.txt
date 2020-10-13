@@ -1,0 +1,174 @@
+addItem Executed on existing item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+1012 | Coke_Zero | 74
+User QCM1001 accessed list item at QC 
+ The following message was shown : 
+ ID | Item Name | Qty 
+1060 | Pepsi | 0
+1012 | Coke_Zero | 24
+1023 | Coke_Green | 16
+1034 | Coke | 12
+ 
+ ------------------- 
+Unexpected error! Request values: QCM1001 QC2222 10removeItem Executed on existing item by QCM1001 | Modifications not made to Server QC | Desired Item Does Not ExistremoveItem Executed on non-existing item by QCM1001 | Modifications not made to Server QC | Desired Item Must be Created 
+removeItem Executed on non-existing item by QCM1001 | Modifications not made to Server QC | Desired Item Must be Created 
+removeItem Executed on non-existing item by QCM1001 | Modifications not made to Server QC | Desired Item Must be Created 
+removeItem Executed on existing item by QCM1001 | Modifications successfully made to Server QC |Updated Values 
+ ID | Item Name | Qty 
+1012 | Coke_Zero | 24
+removeItem Executed on existing item by QCM1001 | Modifications successfully made to Server QC |Updated Values 
+ ID | Item Name | Qty 
+1012 | Coke_Zero | 19
+removeItem Executed on existing item by QCM1001 | Modifications not made to Server QC | Desired Removal 200 lower than current quantity: 19
+User QCM1001 accessed list item at QC 
+ The following message was shown : 
+ ID | Item Name | Qty 
+1060 | Pepsi | 0
+1012 | Coke_Zero | 19
+1023 | Coke_Green | 16
+1034 | Coke | 12
+ 
+ ------------------- 
+(10/11/2020 at 11:06) addItem Executed on newly added item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+1300 | shirt | 500
+
+User QCM1001 accessed list item at QC 
+ The following message was shown : 
+ (10/11/2020 at 11:06) ID | Item Name | Qty 
+1085 | AB_Cola | 3
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 6
+
+1300 | shirt | 500
+
+1012 | Coke_Zero | 28
+
+1023 | Coke_Green | 1
+
+1034 | Coke | 0
+
+1045 | Diet_Pepsi | 45
+
+ 
+ ------------------- 
+
+a(10/12/2020 at 03:58) addItem Executed on newly added item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+1300 | laptop | 1
+
+User QCM1001 accessed list item at QC 
+ The following message was shown : 
+ (10/12/2020 at 03:59) ID | Item Name | Qty 
+1085 | AB_Cola | 3
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 6
+
+1300 | laptop | 1
+
+1012 | Coke_Zero | 28
+
+1023 | Coke_Green | 1
+
+1034 | Coke | 0
+
+1045 | Diet_Pepsi | 45
+
+ 
+ ------------------- 
+
+a(10/12/2020 at 04:00) addItem Executed on newly added item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+1900 | screen | 1
+
+(10/12/2020 at 04:01) removeItem Executed on non-existing item by QCM1001 | Modifications not made to Server QC | Desired Item Must be Created 
+
+User QCM1001 accessed list item at QC 
+ The following message was shown : 
+ (10/12/2020 at 04:02) ID | Item Name | Qty 
+1085 | AB_Cola | 3
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 6
+
+1300 | laptop | 1
+
+1900 | screen | 1
+
+1012 | Coke_Zero | 28
+
+1023 | Coke_Green | 1
+
+1034 | Coke | 0
+
+1045 | Diet_Pepsi | 45
+
+ 
+ ------------------- 
+User QCM1001 accessed list item at BC 
+ The following message was shown : 
+ ID | Item Name | Qty 
+1500 | KEYS | 1
+
+1234 | tea | 1
+
+1300 | 1 | 2
+
+1100 | RICH | 2
+
+1012 | Coke_Zero | 12
+
+1023 | Coke_Green | 23
+
+1034 | Coke | 11
+
+1045 | Diet_Pepsi | 19
+
+1100 | RICH | 2
+
+1085 | AB_Cola | 0
+
+1061 | BC_Cola | 501
+
+1060 | Pepsi | 98
+
+ 
+ ------------------- 
+
+a(10/12/2020 at 06:08) addItem Executed on newly added item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+1234 | tea | 1
+
+
+a(10/12/2020 at 06:08) addItem Executed on newly added item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+1111 | xyz | 1
+
+User QCM1001 accessed list item at QC 
+ The following message was shown : 
+ (10/12/2020 at 06:08) ID | Item Name | Qty 
+1085 | AB_Cola | 3
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 6
+
+1234 | tea | 1
+
+1012 | Coke_Zero | 28
+
+1023 | Coke_Green | 1
+
+1034 | Coke | 0
+
+1045 | Diet_Pepsi | 45
+
+1111 | xyz | 1
+
+ 
+ ------------------- 

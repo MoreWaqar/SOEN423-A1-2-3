@@ -1,0 +1,28 @@
+addItem Executed on existing item by BCM1111 | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+M111 | Laptop | 3
+
+purchaseItem Executed on in-stock out-of-server item by BCU1001 | Modifications made to Server QC |
+ Updated Values 
+ ID | Item Name | Qty 
+1234 | Laptop | 0
+purchaseItem Executed on in-stock out-of-server item by BCU1001 | Modifications made to Server QC |
+ purchaseItem Executed on in-stock out-of-server item by BCU1001 | Modifications made to Server QC |
+ Purchase request by BCU1001. There is no stock for this item in any of our stores. Item ID: 1085 
+Customer added to waitlistpurchaseItem Executed on in-stock out-of-server item by BCU1001 | Modifications made to Server QC |
+ purchaseItem Executed on in-stock out-of-server item by BCU1001 | Modifications made to Server QC |
+ 
+aaddItem Executed on existing item by BCM1001 | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+1300 | 1 | 2
+
+
+aremoveItem Executed on existing item by BCM1001 | Modifications successfully made to Server BC |Updated Values 
+ ID | Item Name | Qty 
+1234 | tea | 0
+
+
+aremoveItem Executed on existing item by BCM1001 | Modifications successfully made to Server BC |Updated Values 
+ ID | Item Name | Qty 
+1100 | RICH | 0
+

@@ -1,0 +1,2 @@
+User ONU1--1 attempted to purchase an item. The following response was received : 
+ There is no stock for this item in any of our stores. Customer added to waitlist ------------------- 
