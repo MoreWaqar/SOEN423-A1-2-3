@@ -1,2 +1,10 @@
 User QCU1002 attempted to purchase an item. The following response was received : 
  There is no stock for this item in any of our stores. Customer added to waitlist ------------------- 
+User QCU1002 attempted to purchase an item. The following response was received : 
+ There is no stock for this item in any of our stores. Customer added to waitlist ------------------- 
+User QCU1002 attempted to purchase an item. The following response was received : 
+ There is no stock for this item in any of our stores. Customer added to waitlist ------------------- 
+User QCU1002 returned item from their home server QC The following message was shown : 
+ 400 ------------------- 
+User QCU1002 returned item from their home server QC The following message was shown : 
+ (10/12/2020 at 06:19) Return no longer possible. This article is not covered under the return policy ------------------- 

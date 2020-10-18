@@ -205,3 +205,39 @@ User QCM1001 accessed list item at QC
 
  
  ------------------- 
+
+a(10/15/2020 at 01:54) addItem Executed on newly added item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+1234 | gang | 50
+
+User QCM1001 accessed list item at QC 
+ The following message was shown : 
+ (10/15/2020 at 01:54) ID | Item Name | Qty 
+1085 | AB_Cola | 3
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 6
+
+1234 | gang | 50
+
+1012 | Coke_Zero | 28
+
+1023 | Coke_Green | 1
+
+1034 | Coke | 0
+
+1045 | Diet_Pepsi | 45
+
+ 
+ ------------------- 
+
+a(10/15/2020 at 02:02) addItem Executed on newly added item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+1234 | gang | 1
+
+
+a(10/15/2020 at 02:03) addItem Executed on existing item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+1234 | gang | 2
+

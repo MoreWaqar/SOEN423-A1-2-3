@@ -90,10 +90,11 @@ public class serverUser {
             System.out.println("1. Purchase an Item");
             System.out.println("2. Find an Item");
             System.out.println("3. Return an Item");
+            System.out.println("4. Exchange an Item");
             System.out.println("Please enter the number of your decision : ");
             try{
                 int decision = sc.nextInt();
-                if (decision > 3 || decision < 1){
+                if (decision > 4 || decision < 1){
                     continue;
                 }
                 if(decision == 1){
@@ -104,6 +105,9 @@ public class serverUser {
                 }
                 if(decision == 3){
                     makeAReturn(username, hostName, sc, userLocation);
+                }
+                if(decision == 4){
+                    makeAnExchange(username, hostName, sc, userLocation);
                 }
 
             }catch (Exception e){
@@ -188,6 +192,26 @@ public class serverUser {
         }
     }
 
+    public static void makeAnExchange(String username, String hostName, Scanner sc, String userLocation){
+        try {
+            System.out.println("Please enter the item ID of the item you want to purchase");
+            sc.nextLine();
+            String desiredItemID = sc.nextLine();
+            System.out.println("Please enter the item ID of the item you want to exchange");
+            String desiredExchange = sc.nextLine();
+            System.out.println("Please enter the date of return in the form [ddmmyyyy]");
+            String dateOfReturn = sc.nextLine();
+            commandsInterface Interface = (commandsInterface) Naming.lookup(hostName + userLocation);
+            String returnMessage = Interface.exchangeLogic(username,desiredItemID, desiredExchange, dateOfReturn);
+            System.out.println(returnMessage);
+            String logMessage = "User " + username + " attempted to exchange an item. The following response was received : \n "
+                    + returnMessage + " ------------------- \n";
+            writeLog(username, logMessage);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+
     public static void findAnItem(String username, String hostName, Scanner sc, String userLocation){
         try {
             sc.nextLine();
@@ -211,9 +235,9 @@ public class serverUser {
             commandsInterface Interface = (commandsInterface) Naming.lookup(hostName + userLocation);
             System.out.println("Please enter the item id you want to return");
             String desiredItemID = sc.nextLine();
-            System.out.println("Please enter the date of purchase in the form [ddmmyyyy]");
-            String dateOfPurchase = sc.nextLine();
-            String returnMessage = Interface.returnItem(username,desiredItemID,dateOfPurchase);
+            System.out.println("Please enter the date of return in the form [ddmmyyyy]");
+            String dateOfReturn = sc.nextLine();
+            String returnMessage = Interface.returnItem(username,desiredItemID,dateOfReturn);
             System.out.println(returnMessage);
             System.out.println("----------");
             String logMessage = "User " + username + " returned item from their home server " + userLocation + " The following message was shown : \n "

@@ -3,12 +3,13 @@ package Model;
 public class Purchase {
 
     private String itemID;
-    private String dateOfPurchase;
     private String customerID;
+    private int price;
 
-    public Purchase(String itemID, String dateOfPurchase) {
+    public Purchase(String itemID, int price, String customerID) {
         this.itemID = itemID;
-        this.dateOfPurchase = dateOfPurchase;
+        this.price = price;
+        this.customerID = customerID;
     }
 
 
@@ -20,12 +21,12 @@ public class Purchase {
         this.itemID = itemID;
     }
 
-    public String getDateOfPurchase() {
-        return dateOfPurchase;
+    public int getPrice() {
+        return price;
     }
 
-    public void setDateOfPurchase(String dateOfPurchase) {
-        this.dateOfPurchase = dateOfPurchase;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getCustomerID() {

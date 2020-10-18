@@ -19,5 +19,7 @@ public interface commandsInterface extends Remote {
 
         public String findItem(String customerID, String itemName) throws java.rmi.RemoteException;
 
+        public String exchangeLogic(String customerID, String itemID, String oldItemID, String dateOfReturn) throws java.rmi.RemoteException;
+
 
 }

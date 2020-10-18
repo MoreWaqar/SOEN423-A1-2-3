@@ -55,6 +55,7 @@ public class BCServer {
                 socket.receive(request);
                 String sentence = new String( request.getData(), request.getOffset(), request.getLength()).trim();
                 String[] split = sentence.split("-");
+                //action+"-"+username+"-"+itemId+"-"+cost"-"+oldItem
                 System.out.println("Function Received " + split[0]);
                 if(split[0].equals("purchaseItem")) {
                     returnMessage = obj.purchaseLocalItem(split[1],split[2]);
@@ -65,7 +66,7 @@ public class BCServer {
                     System.out.println(returnMessage);
 
                 }if(split[0].equals("returnItem")) {
-                    returnMessage = obj.returnLocalStock(split[2]);
+                    returnMessage = obj.returnLocalStock(split[1],split[2]);
                     System.out.println(returnMessage);
                 }if(split[0].equals("getBudget")) {
                     returnMessage = Integer.toString(obj.getLocalBudget(split[1]));
@@ -73,7 +74,25 @@ public class BCServer {
                 }if(split[0].equals("setBudget")) {
                     returnMessage = obj.setLocalBudget(split[1],split[3]);
                     System.out.println(returnMessage);
+                }if(split[0].equals("getOldPrice")) {
+                    returnMessage = obj.getLocalOldItemPrice(split[2],split[1]);
+                    System.out.println(returnMessage);
+                }if(split[0].equals("getNewPrice")) {
+                    returnMessage = obj.getLocalNewItemPrice(split[2],split[1]);
+                    System.out.println(returnMessage);
+                }if(split[0].equals("getFirstShop")) {
+                    boolean value = obj.firstShop(split[1]);
+                    if(value){
+                        returnMessage = "true";
+                    }else{
+                        returnMessage = "false";
+                    }
+                    System.out.println(returnMessage);
+                }if(split[0].equals("ownsItem")) {
+                    returnMessage = obj.localOwnsItem(split[1],split[2]);
+                    System.out.println(returnMessage);
                 }
+
                 byte[] sendData = returnMessage.getBytes();
                 DatagramPacket reply = new DatagramPacket(sendData, returnMessage.length(), request.getAddress(),
                         request.getPort());
@@ -87,6 +106,8 @@ public class BCServer {
                 socket.close();
         }
     }
+
+
 
 
 }
