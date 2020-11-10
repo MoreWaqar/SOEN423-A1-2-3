@@ -2,6 +2,14 @@ package Server;
 
 import ServerImpl.BCCommandsImpl;
 import ServerImpl.ONCommandsImpl;
+import StoreApp.Store;
+import StoreApp.StoreHelper;
+import org.omg.CORBA.ORB;
+import org.omg.CORBA.Object;
+import org.omg.CosNaming.NameComponent;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
+import org.omg.PortableServer.POA;
 
 import java.rmi.Naming;
 import java.rmi.*;
@@ -15,18 +23,29 @@ import java.sql.SQLOutput;
 public class BCServer {
     public static void main(String args[]){
         try{
-            startTheRegistry();
-            BCCommandsImpl Obj = new BCCommandsImpl();
-            String registryURL = "rmi://localhost:1099/BC";
-            Naming.rebind(registryURL, Obj);
-            System.out.println("Start Sequence Complete");
+            ORB orb = ORB.init(args, null);
+
+            POA rootPOA = (POA) orb.resolve_initial_references("RootPOA");
+            rootPOA.the_POAManager().activate();
+
+            BCCommandsImpl store = new BCCommandsImpl();
+            Object ref = rootPOA.servant_to_reference(store);
+            Store corbaRef = StoreHelper.narrow(ref);
+
+            Object objRef = orb.resolve_initial_references("NameService");
+            NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+
+            NameComponent[] path = ncRef.to_name("BC");
+            ncRef.rebind(path, corbaRef);
+
 
             Runnable task = () -> {
-                receive(Obj);
+                receive(store);
             };
             Thread thread = new Thread(task);
             thread.start();
 
+            orb.run();
         }
         catch (Exception e) {
         }

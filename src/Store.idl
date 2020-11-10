@@ -1,0 +1,19 @@
+module StoreApp
+{
+  interface Store
+  {
+  string addItem(in string managerID, in string itemID, in string itemName,in long qty,in long price);
+  
+  string removeItem(in string managerID, in string itemID, in long qty);
+  
+  string listItemAvailability(in string managerID);
+  
+  string purchaseItem(in string customerID, in string itemID, in string dateOfPurchase);
+  
+  string returnItem(in string customerID, in string itemID, in string dateOfReturn);
+  
+  string findItem(in string customerID,in string itemName);
+  
+  string exchangeLogic(in string customerID,in string itemID, in string oldItemID, in string dateOfReturn);
+  };
+};

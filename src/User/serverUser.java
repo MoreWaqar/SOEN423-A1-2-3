@@ -7,6 +7,11 @@ import java.net.MalformedURLException;
 import java.rmi.*;
 
 import Interface.commandsInterface;
+import StoreApp.Store;
+import StoreApp.StoreHelper;
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
 
 import java.rmi.Naming;
 import java.time.LocalDate;
@@ -15,6 +20,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class serverUser {
+    static Store store;
+
     public static void main(String args[]){
         try {
             String hostName = "rmi://localhost:1099/";
@@ -29,10 +36,17 @@ public class serverUser {
                     username = sc.nextLine();
                 }
                 System.out.println("Here are the locations currently available");
-                listStores(hostName);
                 System.out.println("-----");
                 String userLocation = userLocation(username).toUpperCase();
                 System.out.println("You've been identified to be at the " + userLocation + " location");
+                try {
+                    ORB orb = ORB.init(args, null);
+                    org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
+                    NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+                    store = StoreHelper.narrow(ncRef.resolve_str(userLocation));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 if (username.substring(2, 3).equals("M")) {
                     managerMenu(username, hostName, userLocation, sc);
                 } else {
@@ -148,11 +162,11 @@ public class serverUser {
             int desiredItemQty = sc.nextInt();
             System.out.println("Please enter the item price");
             int desiredItemPrice = sc.nextInt();
-            commandsInterface Interface = (commandsInterface) Naming.lookup(hostName + userLocation);
-            String returnMessage = Interface.addItem(username,desiredItemID,desiredItemName,desiredItemQty,desiredItemPrice);
+            String returnMessage = store.addItem(username,desiredItemID,desiredItemName,desiredItemQty,desiredItemPrice);
+            System.out.println(returnMessage);
             writeLog(username, returnMessage);
         }catch(Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -164,8 +178,7 @@ public class serverUser {
             String desiredItemID = sc.next();
             System.out.println("Please enter the item qty you wish to remove");
             int desiredItemQty = sc.nextInt();
-            commandsInterface Interface = (commandsInterface) Naming.lookup(hostName + userLocation);
-            String returnMessage = Interface.removeItem(username,desiredItemID, desiredItemQty);
+            String returnMessage = store.removeItem(username,desiredItemID, desiredItemQty);
             System.out.println(returnMessage);
             writeLog(username, returnMessage);
         }catch(Exception e){
@@ -181,8 +194,7 @@ public class serverUser {
         System.out.println("Please enter the item ID of the item you want to purchase");
             sc.nextLine();
         String desiredItemID = sc.nextLine();
-        commandsInterface Interface = (commandsInterface) Naming.lookup(hostName + userLocation);
-        String returnMessage = Interface.purchaseItem(username,desiredItemID, returnCurrentTime());
+        String returnMessage = store.purchaseItem(username,desiredItemID, returnCurrentTime());
             System.out.println(returnMessage);
             String logMessage = "User " + username + " attempted to purchase an item. The following response was received : \n "
                     + returnMessage + " ------------------- \n";
@@ -194,15 +206,14 @@ public class serverUser {
 
     public static void makeAnExchange(String username, String hostName, Scanner sc, String userLocation){
         try {
-            System.out.println("Please enter the item ID of the item you want to purchase");
             sc.nextLine();
+            System.out.println("Please enter the item ID of the item you want to purchase");
             String desiredItemID = sc.nextLine();
             System.out.println("Please enter the item ID of the item you want to exchange");
             String desiredExchange = sc.nextLine();
             System.out.println("Please enter the date of return in the form [ddmmyyyy]");
             String dateOfReturn = sc.nextLine();
-            commandsInterface Interface = (commandsInterface) Naming.lookup(hostName + userLocation);
-            String returnMessage = Interface.exchangeLogic(username,desiredItemID, desiredExchange, dateOfReturn);
+            String returnMessage = store.exchangeLogic(username,desiredItemID, desiredExchange, dateOfReturn);
             System.out.println(returnMessage);
             String logMessage = "User " + username + " attempted to exchange an item. The following response was received : \n "
                     + returnMessage + " ------------------- \n";
@@ -215,10 +226,9 @@ public class serverUser {
     public static void findAnItem(String username, String hostName, Scanner sc, String userLocation){
         try {
             sc.nextLine();
-            commandsInterface Interface = (commandsInterface) Naming.lookup(hostName + userLocation);
             System.out.println("Please enter the item Name of the item you want to search our stores for");
             String desiredItemName = sc.nextLine();
-            String returnMessage = Interface.findItem(username, desiredItemName);
+            String returnMessage = store.findItem(username, desiredItemName);
             System.out.println("Here is the stock across our servers : \n" + returnMessage);
             System.out.println("----------");
             String logMessage = "User " + username + " accessed find item at " + userLocation + " The following message was shown : \n "
@@ -232,12 +242,11 @@ public class serverUser {
     public static void makeAReturn(String username, String hostName, Scanner sc, String userLocation){
         try {
             sc.nextLine();
-            commandsInterface Interface = (commandsInterface) Naming.lookup(hostName + userLocation);
             System.out.println("Please enter the item id you want to return");
             String desiredItemID = sc.nextLine();
             System.out.println("Please enter the date of return in the form [ddmmyyyy]");
             String dateOfReturn = sc.nextLine();
-            String returnMessage = Interface.returnItem(username,desiredItemID,dateOfReturn);
+            String returnMessage = store.returnItem(username,desiredItemID,dateOfReturn);
             System.out.println(returnMessage);
             System.out.println("----------");
             String logMessage = "User " + username + " returned item from their home server " + userLocation + " The following message was shown : \n "
@@ -254,9 +263,7 @@ public class serverUser {
 
     public static void listItems(String username, String userLocation){
         try {
-            String hostName = "rmi://localhost:1099/";
-            commandsInterface Interface = (commandsInterface) Naming.lookup(hostName + userLocation);
-            String returnMessage = Interface.listItemAvailability(username);
+            String returnMessage = store.listItemAvailability(username);
             System.out.println(userLocation + " Location Stock");
             System.out.println(returnMessage);
             String logMessage = "User " + username + " accessed list item at " + userLocation + " \n The following message was shown : \n " + returnMessage
@@ -341,25 +348,6 @@ public class serverUser {
 
     public static void listItemsPath(String hostName, Scanner sc, String username, String userLocation) {
         listItems(username, userLocation);
-        boolean repeatList = true;
-        while(repeatList) {
-            sc.nextLine();
-            try {
-                String listDecision = "";
-                System.out.println("------");
-                System.out.println("Would you like to see another location? y/n");
-                listDecision = sc.nextLine();
-                System.out.println(listDecision);
-                if (!listDecision.equals("y")) {
-                    repeatList = false;
-                    break;
-                }
-            }catch(Exception e){
-                System.out.println("Invalid input. Try again");
-            }
-            String chosenLocation = selectLocation(hostName, sc);
-            listItems(username, chosenLocation);
-        }
     }
 
 

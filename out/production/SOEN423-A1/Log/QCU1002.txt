@@ -8,3 +8,8 @@ User QCU1002 returned item from their home server QC The following message was s
  400 ------------------- 
 User QCU1002 returned item from their home server QC The following message was shown : 
  (10/12/2020 at 06:19) Return no longer possible. This article is not covered under the return policy ------------------- 
+User QCU1002 attempted to purchase an item. The following response was received : 
+ (10/18/2020 at 07:34) Sale successful. Updated Stock for this item 
+ ID | Item Name | Qty 
+1012 | Coke_Zero | 26
+ ------------------- 

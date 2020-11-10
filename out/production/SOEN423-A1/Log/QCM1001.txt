@@ -241,3 +241,107 @@ a(10/15/2020 at 02:03) addItem Executed on existing item by QCM1001 | Modificati
  ID | Item Name | Qty 
 1234 | gang | 2
 
+
+a(10/18/2020 at 06:54) addItem Executed on newly added item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+2005 | D | 5
+
+
+a(10/21/2020 at 07:33) addItem Executed on newly added item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+2000 | tv | 5
+
+
+a(10/21/2020 at 07:34) addItem Executed on newly added item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+2001 | phone | 5
+
+(10/21/2020 at 07:35) removeItem Executed on existing item by QCM1001 | Modifications made to Server QC | Item Deleted 
+
+User QCM1001 accessed list item at QC 
+ The following message was shown : 
+ (10/23/2020 at 01:51) ID | Item Name | Qty 
+1085 | AB_Cola | 3
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 6
+
+1012 | Coke_Zero | 28
+
+1023 | Coke_Green | 1
+
+1034 | Coke | 0
+
+1045 | Diet_Pepsi | 45
+
+ 
+ ------------------- 
+
+a(10/23/2020 at 01:52) addItem Executed on newly added item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+2000 | deck | 49
+
+
+a(10/24/2020 at 03:06) addItem Executed on newly added item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+5000 | bob | 4
+
+(10/24/2020 at 03:06) removeItem Executed on existing item by QCM1001 | Modifications successfully made to Server QC |Updated Values 
+ ID | Item Name | Qty 
+5000 | bob | 1
+
+(10/24/2020 at 03:06) removeItem Executed on existing item by QCM1001 | Modifications made to Server QC | Item Deleted 
+
+User QCM1001 accessed list item at QC 
+ The following message was shown : 
+ (10/24/2020 at 03:06) ID | Item Name | Qty 
+1085 | AB_Cola | 3
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 6
+
+1012 | Coke_Zero | 28
+
+1023 | Coke_Green | 1
+
+1034 | Coke | 0
+
+1045 | Diet_Pepsi | 45
+
+ 
+ ------------------- 
+
+a(10/24/2020 at 04:11) addItem Executed on newly added item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+6231 | DS | 2 | 30
+
+
+a(10/24/2020 at 04:11) addItem Executed on newly added item by QCM1001 | Modifications successfully made to Server QC | Updated Values 
+ ID | Item Name | Qty 
+6651 | ADT | 2 | 30
+
+User QCM1001 accessed list item at QC 
+ The following message was shown : 
+ (10/24/2020 at 04:12) ID | Item Name | Qty 
+1085 | AB_Cola | 3
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 6
+
+6651 | ADT | 2
+
+1012 | Coke_Zero | 28
+
+1023 | Coke_Green | 1
+
+1034 | Coke | 0
+
+1045 | Diet_Pepsi | 45
+
+6231 | DS | 2
+
+ 
+ ------------------- 

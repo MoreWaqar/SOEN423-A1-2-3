@@ -30,3 +30,87 @@ User ONM1001 accessed list item at ON
 
  
  ------------------- 
+
+aaddItem Executed on newly added item by ONM1001 | Modifications successfully made to Server ON | Updated Values 
+ ID | Item Name | Qty 
+2000 | C | 50
+
+User ONM1001 accessed list item at ON 
+ The following message was shown : 
+ ID | Item Name | Qty 
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 4
+
+1085 | AB_Cola | 0
+
+1012 | Coke_Zero | 27
+
+1023 | Coke_Green | 12
+
+1034 | Coke | 13
+
+ 
+ ------------------- 
+
+aaddItem Executed on newly added item by ONM1001 | Modifications successfully made to Server ON | Updated Values 
+ ID | Item Name | Qty 
+2004 | TV | 2
+
+
+aaddItem Executed on newly added item by ONM1001 | Modifications successfully made to Server ON | Updated Values 
+ ID | Item Name | Qty 
+6231 | DS | 1 | 10
+
+
+aaddItem Executed on newly added item by ONM1001 | Modifications successfully made to Server ON | Updated Values 
+ ID | Item Name | Qty 
+2500 | fake | 20 | 20
+
+User ONM1001 accessed list item at ON 
+ The following message was shown : 
+ ID | Item Name | Qty 
+2500 | fake | 20
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 4
+
+1085 | AB_Cola | 0
+
+6231 | DS | 1
+
+1012 | Coke_Zero | 27
+
+1023 | Coke_Green | 12
+
+1034 | Coke | 13
+
+ 
+ ------------------- 
+
+addItem Executed on existing item by ONM1001 | Modifications successfully made to Server ON | Updated Values 
+ ID | Item Name | Qty 
+6231 | DS | 3 | 10
+
+User ONM1001 accessed list item at ON 
+ The following message was shown : 
+ ID | Item Name | Qty 
+2500 | fake | 20
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 4
+
+1085 | AB_Cola | 0
+
+6231 | DS | 3
+
+1012 | Coke_Zero | 27
+
+1023 | Coke_Green | 12
+
+1034 | Coke | 13
+
+ 
+ ------------------- 

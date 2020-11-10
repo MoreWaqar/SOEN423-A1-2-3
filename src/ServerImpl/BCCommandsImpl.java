@@ -4,6 +4,7 @@ import Interface.commandsInterface;
 import Model.Customer;
 import Model.Item;
 import Model.Purchase;
+import StoreApp.StorePOA;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class BCCommandsImpl extends UnicastRemoteObject implements commandsInterface {
+public class BCCommandsImpl extends StorePOA {
 
     private Map<String, Item> Stock;
     private static Map<String, Queue> WaitList;
@@ -43,10 +44,10 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
             Stock.put("BC1034", new Item("1034", "Coke", "BC",11, 16));
             Stock.put("BC1045", new Item("1045", "Diet_Pepsi", "BC",19, 6));
             Stock.put("BC1060", new Item("1060", "Pepsi", "BC",98, 25));
-            Stock.put("BC1061", new Item("1061", "BC_Cola", "BC",501, 25));
+            Stock.put("BC1061", new Item("1061", "BC_Cola", "BC",501, 31));
             Stock.put("BC1085", new Item("1085", "AB_Cola", "BC",0, 34));
             Stock.put("BC1100", new Item("1100", "RICH", "BC",2, 3400));
-            Stock.put("BC1200", new Item("1200", "RICH", "BC",2, 501));
+            Stock.put("BC1200", new Item("1200", "RICH", "BC",2, 980));
             Customers.put("BCU1001", new Customer());
             Customers.put("BCU1500", new Customer());
 
@@ -56,13 +57,13 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
         }
     }
 
-    synchronized public String addItem(String managerID, String itemID, String itemName,int qty, int price) throws java.rmi.RemoteException{
+    synchronized public String addItem(String managerID, String itemID, String itemName,int qty, int price){
         try {
             qty = emptyWaitlist(itemID, qty);
             Stock.get(itemID).setItemQty(Stock.get(itemID).getItemQty()+qty);
             String logMessage = "\naddItem Executed on existing item by " + managerID + " | Modifications successfully made to Server BC | " +
                     "Updated Values \n ID | Item Name | Qty \n" + this.Stock.get(itemID).getItemID() + " | " + this.Stock.get(itemID).getItemName() + " | "
-                    + this.Stock.get(itemID).getItemQty() + "\n\n";
+                    + this.Stock.get(itemID).getItemQty()  + " | " +  this.Stock.get(itemID).getPrice()+ "\n\n";
             writeLog(logMessage);
             return (logMessage);
         }catch(Exception e) {
@@ -70,7 +71,7 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
             this.Stock.get(itemID);
             String logMessage = "\naddItem Executed on newly added item by " + managerID + " | Modifications successfully made to Server BC | " +
                     "Updated Values \n ID | Item Name | Qty \n" + this.Stock.get(itemID).getItemID() + " | " + this.Stock.get(itemID).getItemName() + " | "
-                    + this.Stock.get(itemID).getItemQty() + "\n\n";
+                    + this.Stock.get(itemID).getItemQty()  + " | " +  this.Stock.get(itemID).getPrice()+ "\n\n";
             return (logMessage);
         }
     }
@@ -84,6 +85,9 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
                         + " | Modifications made to Server BC |\n " + "Updated Values \n ID | Qty \n" + itemId
                         +" | "
                         + --qty + "\n";
+                try {
+                    Purchases.add(new Purchase(itemId, Stock.get(itemId).getPrice(), satisfiedCustomer));
+                }catch (Exception e){}
                 writeLog(logMessage);
                 System.out.println(logMessage);
 
@@ -95,7 +99,7 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
     }
 
 
-    synchronized public String removeItem(String managerID, String itemID, int qty) throws java.rmi.RemoteException{
+    synchronized public String removeItem(String managerID, String itemID, int qty) {
         try{
             int currentQuantity = Stock.get(itemID).getItemQty();
             if(qty == -1){
@@ -116,7 +120,7 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
             String returnMessage = "("+ (returnTimeStamp()) + ") "+"\nremoveItem Executed on existing item by " + managerID
                     + " | Modifications successfully made to Server BC |"+
                     "Updated Values \n ID | Item Name | Qty \n" + this.Stock.get(itemID).getItemID() + " | " + this.Stock.get(itemID).getItemName() + " | "
-                    + this.Stock.get(itemID).getItemQty() + "\n\n";
+                    + this.Stock.get(itemID).getItemQty()  + " | " +  this.Stock.get(itemID).getPrice()+ "\n\n";
             writeLog(returnMessage);
             return returnMessage;
         }catch(Exception e){
@@ -126,7 +130,7 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
         }
     }
 
-    public String listItemAvailability(String managerID) throws java.rmi.RemoteException{
+    public String listItemAvailability(String managerID){
         if (validateManager(managerID)){
             String items = "ID | Item Name | Qty \n";
             for (String i : this.Stock.keySet()){
@@ -145,7 +149,7 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
         return("Invalid Access Request");
     }
 
-    public String purchaseItem(String customerID, String itemID, String dateOfPurchase) throws java.rmi.RemoteException{
+    public String purchaseItem(String customerID, String itemID, String dateOfPurchase){
         String logID = itemID;
         if(OwnsItem(customerID,itemID)){
             return "Customer already owns this item";
@@ -156,7 +160,7 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
                 String logMessage = "("+ (returnTimeStamp()) + ") "+"purchaseItem Executed on in-stock item by " + customerID
                         + " | Modifications made to Server BC |\n " + "Updated Values \n ID | Item Name | Qty \n" + this.Stock.get(logID).getItemID()
                         + " | " + this.Stock.get(logID).getItemName() + " | "
-                        + this.Stock.get(logID).getItemQty() + "\n";
+                        + this.Stock.get(logID).getItemQty()  + " | " +  this.Stock.get(logID).getPrice()+ "\n";
                 writeLog(logMessage);
                 return locallyAvailable;
             }
@@ -212,7 +216,7 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
                 Purchases.add(new Purchase(itemID, Stock.get(itemID).getPrice(),customerID));
                 String returnMessage = "("+ (returnTimeStamp()) + ") "+"Sale successful. Updated Stock for this item \n ID | Item Name | Qty \n" + this.Stock.get(itemID).getItemID()
                         + " | " + this.Stock.get(itemID).getItemName() + " | "
-                        + this.Stock.get(itemID).getItemQty() + "\n";
+                        + this.Stock.get(itemID).getItemQty()  + " | " +  this.Stock.get(itemID).getPrice()+ "\n";
                 return returnMessage;
             } else {
                 return ("410");
@@ -294,6 +298,7 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
     public int getLocalBudget(String customerId){
         try{
             int budget = this.Customers.get(customerId).getBudget();
+            System.out.println("Local Budget : " + budget);
             return budget;
         }catch (Exception e){
             this.Customers.put(customerId,new Customer());
@@ -310,7 +315,7 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
 
 
 
-    public String returnItem(String customerID, String itemID, String dateOfReturn) throws java.rmi.RemoteException{
+    public String returnItem(String customerID, String itemID, String dateOfReturn){
         try{
             if (returnPossible(dateOfReturn)){
                 if(!OwnsItem(customerID,itemID)){
@@ -321,18 +326,24 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
                     String logMessage = "("+ (returnTimeStamp()) + ") "+"ReturnItem Executed on in-stock item by " + customerID
                             + " | Modifications made to Server QC |\n " +QCItem + "\n";
                     writeLog(logMessage);
+                    int price =  getNewItemPrice(itemID,customerID);
+                    setLocalBudget(customerID,getLocalBudget(customerID)+price,true);
                     return QCItem;
                 }else if(itemID.substring(0,2).equals("ON")){
                     String ONItem = sendUDP(2001, customerID, itemID, "returnItem",0, "");
                     String logMessage = "("+ (returnTimeStamp()) + ") "+"ReturnItem Executed on in-stock item by " + customerID
                             + " | Modifications made to Server ON |\n " + ONItem + "\n";
                     writeLog(logMessage);
+                    int price  = getNewItemPrice(itemID,customerID);
+                    setLocalBudget(customerID,getLocalBudget(customerID)+price,true);
                     return ONItem;
                 }else if(itemID.substring(0,2).equals("BC")){
                     String BCItem = sendUDP(2002, customerID, itemID, "returnItem",0, "");
                     String logMessage = "("+ (returnTimeStamp()) + ") "+"ReturnItem Executed on in-stock item by " + customerID
                             + " | Modifications made to Server BC |\n " +BCItem + "\n";
                     writeLog(logMessage);
+                    int price = getNewItemPrice(itemID,customerID);
+                    setLocalBudget(customerID,getLocalBudget(customerID)+price,true);
                     return BCItem;
                 }
             }else{
@@ -345,8 +356,8 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
     }
 
     synchronized public String returnLocalStock(String customerID, String itemID){
+        System.out.println("Item ID: " + itemID);
         try{
-            itemID = "BC"+itemID.substring(2,6);
             int qty = 1;
             qty = emptyWaitlist(itemID, qty);
             if(qty == 0){
@@ -360,8 +371,8 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
             removeLocalSale(customerID,itemID);
             return returnMessage;
         }catch (Exception e){
-            this.Stock.put(itemID,new Item(itemID.substring(2,6), "No Longer Sold Return", "QC",1, 100000));
             e.printStackTrace();
+            this.Stock.put(itemID,new Item(itemID.substring(2,6), "No Longer Sold Return", "QC",1, 100000));
         }
         String returnMessage = "("+ (returnTimeStamp()) + ") "+"Return successful. Item stocked, but no longer in regular sale items Price adjusted until manager input \n ID | Item Name | Qty \n"
                 + this.Stock.get(itemID).getItemID() + " | " + this.Stock.get(itemID).getItemName() + " | "
@@ -371,14 +382,27 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
     }
 
     public void removeLocalSale(String customerID, String itemID){
-        for(int i=0;i<Purchases.size();i++){
-            if(Purchases.get(i).getCustomerID().equals(customerID) && Purchases.get(i).getItemID().equals(itemID)){
-                Purchases.remove(i);
+        try {
+            for (int i = 0; i < Purchases.size(); i++) {
+                if (Purchases.get(i).getCustomerID().equals(customerID) && Purchases.get(i).getItemID().equals(itemID)) {
+                    int toRemove = -1;
+                    for (int j = 0; j < foreignCustomers.size(); j++) {
+                        if (foreignCustomers.get(j).equals(Purchases.get(i).getCustomerID()))
+                            toRemove = j;
+                    }
+                    if(toRemove != -1){
+                        foreignCustomers.remove(toRemove);
+                    }
+                    Purchases.remove(i);
+
+                }
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
-    public String findItem(String customerID,  String itemName) throws java.rmi.RemoteException{
+    public String findItem(String customerID,  String itemName){
         try{
             String localItem = sendUDP(2002, customerID, itemName,"findItem",0, "");
             String ONItem = sendUDP(2001, customerID, itemName,"findItem",0, "");
@@ -501,34 +525,30 @@ public class BCCommandsImpl extends UnicastRemoteObject implements commandsInter
                 return "Budget not available for this exchange.";
             }
             if(customerID.substring(0,2).equals("BC")){
-                System.out.println(3);
-                fixExchangeBudget(customerID,itemID, price, newPrice);
+                String returnMessage = returnItem(customerID,oldItemID,returnCurrentTime());
+                System.out.println(returnMessage);
                 String purchaseMessage = purchaseItem(customerID,itemID,returnCurrentTime()).trim();
                 System.out.println(purchaseMessage);
                 if(purchaseMessage.startsWith("(")){
                     System.out.println(4);
-                    String returnMessage = returnItem(customerID,oldItemID,returnCurrentTime());
-                    System.out.println(returnMessage);
                     return "Item Exchanged";
                 }else{
-                    return "Item not in stock. Exchange not possible";
+                    return purchaseMessage;
                 }
             }else{
                 if(returnFirstShop(customerID,itemID)){
-                    fixExchangeBudget(customerID,itemID, price, newPrice);
+                    returnItem(customerID,oldItemID,returnCurrentTime());
                     String purchaseMessage = purchaseItem(customerID,itemID,returnCurrentTime());
                     if(purchaseMessage.startsWith("(")){
-                        String returnMessage = returnItem(customerID,oldItemID,returnCurrentTime());
                         return "Item Exchanged";
                     }else{
                         return purchaseMessage;
                     }
                 }else{
                     if(itemID.substring(0,2).equals(oldItemID.substring(0,2))){
-                        fixExchangeBudget(customerID,itemID, price, newPrice);
+                        returnItem(customerID,oldItemID,returnCurrentTime());
                         String purchaseMessage = purchaseItem(customerID,itemID,returnCurrentTime());
                         if(purchaseMessage.startsWith("(")){
-                            String returnMessage = returnItem(customerID,oldItemID,returnCurrentTime());
                             return "Item Exchanged";
                         }else{
                             return purchaseMessage;
