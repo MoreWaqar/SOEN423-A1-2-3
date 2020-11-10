@@ -1,0 +1,7 @@
+(10/12/2020 at 06:13) 
+removeItem Executed on existing item by BCM1002 | Modifications successfully made to Server BC |Updated Values 
+ ID | Item Name | Qty 
+1234 | laptop | 0
+
+(10/12/2020 at 06:14) removeItem Executed on existing item by BCM1002 | Modifications made to Server QC | Item Deleted 
+

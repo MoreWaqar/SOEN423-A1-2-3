@@ -1,0 +1,5 @@
+User BCU1005 attempted to purchase an item. The following response was received : 
+ (10/15/2020 at 07:19) Sale successful. Updated Stock for this item 
+ ID | Item Name | Qty 
+1034 | Coke | 10
+ ------------------- 
