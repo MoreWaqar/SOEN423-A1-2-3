@@ -306,3 +306,18 @@ addItem Executed on existing item by BCM1001 | Modifications successfully made t
  ID | Item Name | Qty 
 1012 | Coke_Zero | 62
 
+
+addItem Executed on newly added item by BCM1001 | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+2000 | tea | 50 | 10
+
+
+addItem Executed on newly added item by BCM1001 | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+2005 | tea | 20 | 20
+
+
+addItem Executed on newly added item by BCM1001 | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+2000 | tea | 50 | 10
+

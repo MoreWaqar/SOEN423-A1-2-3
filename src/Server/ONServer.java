@@ -3,15 +3,9 @@ package Server;
 import ServerImpl.BCCommandsImpl;
 import ServerImpl.ONCommandsImpl;
 import ServerImpl.QCCommandsImpl;
-import StoreApp.Store;
-import StoreApp.StoreHelper;
-import org.omg.CORBA.ORB;
-import org.omg.CORBA.Object;
-import org.omg.CosNaming.NameComponent;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
-import org.omg.PortableServer.POA;
 
+
+import javax.xml.ws.Endpoint;
 import java.rmi.Naming;
 import java.rmi.*;
 import java.rmi.server.*;
@@ -23,29 +17,37 @@ import java.io.*;
 public class ONServer {
     public static void main(String args[]){
         try{
-            ORB orb = ORB.init(args, null);
-
-            POA rootPOA = (POA) orb.resolve_initial_references("RootPOA");
-            rootPOA.the_POAManager().activate();
+//            ORB orb = ORB.init(args, null);
+//
+//            POA rootPOA = (POA) orb.resolve_initial_references("RootPOA");
+//            rootPOA.the_POAManager().activate();
+//
+//            ONCommandsImpl store = new ONCommandsImpl();
+//            Object ref = rootPOA.servant_to_reference(store);
+//            Store corbaRef = StoreHelper.narrow(ref);
+//
+//            Object objRef = orb.resolve_initial_references("NameService");
+//            NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+//
+//            NameComponent[] path = ncRef.to_name("ON");
+//            ncRef.rebind(path, corbaRef);
+//
+//
+//            Runnable task = () -> {
+//                receive(store);
+//            };
+//            Thread thread = new Thread(task);
+//            thread.start();
+//
+//            orb.run();
 
             ONCommandsImpl store = new ONCommandsImpl();
-            Object ref = rootPOA.servant_to_reference(store);
-            Store corbaRef = StoreHelper.narrow(ref);
-
-            Object objRef = orb.resolve_initial_references("NameService");
-            NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-
-            NameComponent[] path = ncRef.to_name("ON");
-            ncRef.rebind(path, corbaRef);
-
-
+            Endpoint endpoint = Endpoint.publish("http://localhost:8200/ONStore", store);
             Runnable task = () -> {
                 receive(store);
             };
             Thread thread = new Thread(task);
             thread.start();
-
-            orb.run();
         }
         catch (Exception e) {
         }

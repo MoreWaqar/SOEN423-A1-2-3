@@ -1,11 +1,11 @@
 package ServerImpl;
 
-import Interface.commandsInterface;
 import Model.Customer;
 import Model.Item;
 import Model.Purchase;
-import StoreApp.StorePOA;
 
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,7 +19,10 @@ import java.net.*;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-public class ONCommandsImpl extends StorePOA {
+
+@WebService(endpointInterface = "ServerImpl.SOAPInterface")
+@SOAPBinding(style = SOAPBinding.Style.RPC)
+public class ONCommandsImpl implements SOAPInterface {
 
     private Map<String, Item> Stock;
     private static Map<String, Queue> WaitList;
@@ -60,14 +63,14 @@ public class ONCommandsImpl extends StorePOA {
                     "Updated Values \n ID | Item Name | Qty \n" + this.Stock.get(itemID).getItemID() + " | " + this.Stock.get(itemID).getItemName() + " | "
                     + this.Stock.get(itemID).getItemQty()  + " | " +  this.Stock.get(itemID).getPrice() + "\n\n";
             writeLog(logMessage);
-            return (logMessage);
+            return stripNonValidXMLCharacters(logMessage);
         }catch(Exception e) {
             Stock.put(itemID, new Item(itemID.substring(2, 6), itemName, itemID.substring(0, 2), qty, price));
             this.Stock.get(itemID);
             String logMessage = "\naaddItem Executed on newly added item by " + managerID + " | Modifications successfully made to Server ON | " +
                     "Updated Values \n ID | Item Name | Qty \n" + this.Stock.get(itemID).getItemID() + " | " + this.Stock.get(itemID).getItemName() + " | "
                     + this.Stock.get(itemID).getItemQty() + " | " +  this.Stock.get(itemID).getPrice() + "\n\n";
-            return (logMessage);
+            return stripNonValidXMLCharacters(logMessage);
         }
     }
 
@@ -104,14 +107,14 @@ public class ONCommandsImpl extends StorePOA {
                 String returnMessage = "("+ (returnTimeStamp()) + ") "+"removeItem Executed on existing item by " + managerID
                         + " | Modifications made to Server QC | Item Deleted "+"\n\n";
                 writeLog(returnMessage);
-                return returnMessage;
+                return stripNonValidXMLCharacters(returnMessage);
             }
             if(currentQuantity<qty){
                 String returnMessage = "("+ (returnTimeStamp()) + ") "+"\nremoveItem Executed on existing item by " + managerID
                         + " | Modifications not made to Server ON | Desired Removal " + qty
                         + " higher than current quantity: " + currentQuantity +"\n\n";
                 writeLog(returnMessage);
-                return returnMessage;
+                return stripNonValidXMLCharacters(returnMessage);
             }
             Stock.get(itemID).setItemQty(Stock.get(itemID).getItemQty()-qty);
             String returnMessage = "("+ (returnTimeStamp()) + ") "+"\nremoveItem Executed on existing item by " + managerID
@@ -119,11 +122,11 @@ public class ONCommandsImpl extends StorePOA {
                     "Updated Values \n ID | Item Name | Qty \n" + this.Stock.get(itemID).getItemID() + " | " + this.Stock.get(itemID).getItemName() + " | "
                     + this.Stock.get(itemID).getItemQty()  + " | " +  this.Stock.get(itemID).getPrice()+ "\n\n";
             writeLog(returnMessage);
-            return returnMessage;
+            return stripNonValidXMLCharacters(returnMessage);
         }catch(Exception e){
             String returnMessage = "("+ (returnTimeStamp()) + ") "+"removeItem Executed on by " + managerID
                     + " | Modifications made to Server QC | Desired Item was not or is no longer in store stock \n\n";
-            return returnMessage;
+            return stripNonValidXMLCharacters(returnMessage);
         }
     }
 
@@ -134,7 +137,7 @@ public class ONCommandsImpl extends StorePOA {
                 items = items.concat(this.Stock.get(i).getItemID() + " | " + this.Stock.get(i).getItemName() + " | "
                         + this.Stock.get(i).getItemQty() + "\n\n");
             }
-            return items;
+            return stripNonValidXMLCharacters(items);
 
         }else{
             try{
@@ -160,7 +163,7 @@ public class ONCommandsImpl extends StorePOA {
                         + " | " + this.Stock.get(logID).getItemName() + " | "
                         + this.Stock.get(logID).getItemQty()  + " | " +  this.Stock.get(logID).getPrice()+ "\n";
                 writeLog(logMessage);
-                return locallyAvailable;
+                return stripNonValidXMLCharacters(locallyAvailable);
             }
             else{
                 String QCItem = sendUDP(2003, customerID, itemID, "purchaseItem",0,"");
@@ -169,7 +172,7 @@ public class ONCommandsImpl extends StorePOA {
                     String logMessage = "("+ (returnTimeStamp()) + ") "+"\napurchaseItem Executed on in-stock out-of-server item by " + customerID
                             + " | Modifications made to Server QC |\n " ;
                     writeLog(logMessage);
-                    return QCItem;
+                    return stripNonValidXMLCharacters(QCItem);
                 }
                 String BCItem = sendUDP(2002, customerID, itemID, "purchaseItem",0,"");
                 System.out.println("BC" + BCItem);
@@ -177,7 +180,7 @@ public class ONCommandsImpl extends StorePOA {
                     String logMessage = "("+ (returnTimeStamp()) + ") "+"\napurchaseItem Executed on in-stock out-of-server item by " + customerID
                             + " | Modifications made to Server BC |\n";
                     writeLog(logMessage);
-                    return BCItem;
+                    return stripNonValidXMLCharacters(BCItem);
                 }
                 if(QCItem.startsWith("41010") || BCItem.startsWith("41010")|| locallyAvailable.startsWith("41010")){
                     return "You have already used your one purchase at this foreign store per company policy";
@@ -317,7 +320,7 @@ public class ONCommandsImpl extends StorePOA {
                     writeLog(logMessage);
                     int price = getNewItemPrice(itemID,customerID);
                     setLocalBudget(customerID,getLocalBudget(customerID)+price,true);
-                    return QCItem;
+                    return stripNonValidXMLCharacters(QCItem);
                 }else if(itemID.substring(0,2).equals("ON")){
                     String ONItem = sendUDP(2001, customerID, itemID, "returnItem",0,"");
                     String logMessage = "("+ (returnTimeStamp()) + ") "+"ReturnItem Executed on in-stock item by " + customerID
@@ -325,7 +328,7 @@ public class ONCommandsImpl extends StorePOA {
                     writeLog(logMessage);
                     int price = getNewItemPrice(itemID,customerID);
                     setLocalBudget(customerID,getLocalBudget(customerID)+price,true);
-                    return ONItem;
+                    return stripNonValidXMLCharacters(ONItem);
                 }else if(itemID.substring(0,2).equals("BC")){
                     String BCItem = sendUDP(2002, customerID, itemID, "returnItem",0,"");
                     String logMessage = "("+ (returnTimeStamp()) + ") "+"ReturnItem Executed on in-stock item by " + customerID
@@ -333,7 +336,7 @@ public class ONCommandsImpl extends StorePOA {
                     writeLog(logMessage);
                     int price = getNewItemPrice(itemID,customerID);
                     setLocalBudget(customerID,getLocalBudget(customerID)+price,true);
-                    return BCItem;
+                    return stripNonValidXMLCharacters(BCItem);
                 }
             }else{
                 return "Return no longer possible. This article is not covered under the return policy";
@@ -401,7 +404,7 @@ public class ONCommandsImpl extends StorePOA {
             String logMessage = "("+ (returnTimeStamp()) + ") "+"\nafindItem executed by " + customerID
                     + " | Modifications not made to Servers | Logged Response :  \n" + returnMessage;
             writeLog(logMessage);
-            return returnMessage;
+            return stripNonValidXMLCharacters(returnMessage);
         }catch(Exception e){
 
         }
@@ -523,7 +526,7 @@ public class ONCommandsImpl extends StorePOA {
                 if(purchaseMessage.startsWith("(")){
                     return "Item Exchanged";
                 }else{
-                    return purchaseMessage;
+                    return stripNonValidXMLCharacters(purchaseMessage);
                 }
             }else{
                 if(returnFirstShop(customerID,itemID)){
@@ -532,7 +535,7 @@ public class ONCommandsImpl extends StorePOA {
                     if(purchaseMessage.startsWith("(")){
                         return "Item Exchanged";
                     }else{
-                        return purchaseMessage;
+                        return stripNonValidXMLCharacters(purchaseMessage);
                     }
                 }else{
                     if(itemID.substring(0,2).equals(oldItemID.substring(0,2))){
@@ -541,7 +544,7 @@ public class ONCommandsImpl extends StorePOA {
                         if(purchaseMessage.startsWith("(")){
                             return "Item Exchanged";
                         }else{
-                            return purchaseMessage;
+                            return stripNonValidXMLCharacters(purchaseMessage);
                         }
                     }else{
                         return "Exchange not possible while respecting return foreign-purchase limits";
@@ -776,6 +779,25 @@ public class ONCommandsImpl extends StorePOA {
         DateTimeFormatter formattedTime = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm");
         String returnTime = formattedTime.format(currentTime);
         return returnTime;
+    }
+
+    //Obtained XML Character error fix at http://blog.mark-mclaren.info/2007/02/invalid-xml-characters-when-valid-utf8_5873.html
+    public String stripNonValidXMLCharacters(String in) {
+        StringBuffer out = new StringBuffer(); // Used to hold the output.
+        char current; // Used to reference the current character.
+
+        if (in == null || ("".equals(in))) return ""; // vacancy test.
+        for (int i = 0; i < in.length(); i++) {
+            current = in.charAt(i); // NOTE: No IndexOutOfBoundsException caught here; it should not happen.
+            if ((current == 0x9) ||
+                    (current == 0xA) ||
+                    (current == 0xD) ||
+                    ((current >= 0x20) && (current <= 0xD7FF)) ||
+                    ((current >= 0xE000) && (current <= 0xFFFD)) ||
+                    ((current >= 0x10000) && (current <= 0x10FFFF)))
+                out.append(current);
+        }
+        return out.toString();
     }
 
 }

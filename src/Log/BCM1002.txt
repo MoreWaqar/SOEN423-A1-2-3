@@ -5,3 +5,58 @@ removeItem Executed on existing item by BCM1002 | Modifications successfully mad
 
 (10/12/2020 at 06:14) removeItem Executed on existing item by BCM1002 | Modifications made to Server QC | Item Deleted 
 
+User BCM1002 accessed list item at BC 
+ The following message was shown : 
+ ID | Item Name | Qty 
+1200 | RICH | 2
+
+1012 | Coke_Zero | 12
+
+1023 | Coke_Green | 23
+
+1034 | Coke | 11
+
+1045 | Diet_Pepsi | 19
+
+1100 | RICH | 2
+
+2000 | tea | 50
+
+1085 | AB_Cola | 0
+
+1061 | BC_Cola | 501
+
+1060 | Pepsi | 98
+
+ 
+ ------------------- 
+(11/10/2020 at 09:44) removeItem Executed on existing item by BCM1002 | Modifications made to Server QC | Item Deleted 
+
+User BCM1002 accessed list item at BC 
+ The following message was shown : 
+ ID | Item Name | Qty 
+1200 | RICH | 2
+
+1023 | Coke_Green | 23
+
+1034 | Coke | 11
+
+1045 | Diet_Pepsi | 19
+
+1100 | RICH | 2
+
+2000 | tea | 50
+
+1085 | AB_Cola | 0
+
+1061 | BC_Cola | 501
+
+1060 | Pepsi | 98
+
+ 
+ ------------------- 
+
+addItem Executed on existing item by BCM1002 | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+1085 | AB_Cola | 25 | 34
+

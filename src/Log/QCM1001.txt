@@ -345,3 +345,41 @@ User QCM1001 accessed list item at QC
 
  
  ------------------- 
+User QCM1001 accessed list item at QC 
+ The following message was shown : 
+ (11/10/2020 at 08:56) ID | Item Name | Qty 
+1085 | AB_Cola | 3
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 6
+
+1012 | Coke_Zero | 28
+
+1023 | Coke_Green | 1
+
+1034 | Coke | 0
+
+1045 | Diet_Pepsi | 45
+
+ 
+ ------------------- 
+User QCM1001 accessed list item at QC 
+ The following message was shown : 
+ (11/10/2020 at 09:11) ID | Item Name | Qty 
+1085 | AB_Cola | 3
+
+1061 | BC_Cola | 0
+
+1060 | Pepsi | 6
+
+1012 | Coke_Zero | 27
+
+1023 | Coke_Green | 1
+
+1034 | Coke | 0
+
+1045 | Diet_Pepsi | 45
+
+ 
+ ------------------- 

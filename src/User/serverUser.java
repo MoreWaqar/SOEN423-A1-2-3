@@ -1,18 +1,19 @@
 package User;
+import ServerImpl.BCCommandsImpl;
+import ServerImpl.ONCommandsImpl;
+import ServerImpl.QCCommandsImpl;
+import ServerImpl.SOAPInterface;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.*;
 
-import Interface.commandsInterface;
-import StoreApp.Store;
-import StoreApp.StoreHelper;
-import org.omg.CORBA.ORB;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
-
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
 import java.rmi.Naming;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +21,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class serverUser {
-    static Store store;
+    public static Service QCStore;
+    public static Service BCStore;
+    public static Service ONStore;
+    static SOAPInterface store;
 
     public static void main(String args[]){
         try {
@@ -40,10 +44,29 @@ public class serverUser {
                 String userLocation = userLocation(username).toUpperCase();
                 System.out.println("You've been identified to be at the " + userLocation + " location");
                 try {
-                    ORB orb = ORB.init(args, null);
-                    org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
-                    NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-                    store = StoreHelper.narrow(ncRef.resolve_str(userLocation));
+//                    ORB orb = ORB.init(args, null);
+//                    org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
+//                    NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+//                    store = StoreHelper.narrow(ncRef.resolve_str(userLocation));
+
+
+                    QName QCQName =  new QName("http://ServerImpl/", "QCCommandsImplService");
+                    QCStore =  Service.create(new URL("http://localhost:8300/QCStore?wsdl"),QCQName);
+
+                    QName ONQName =  new QName("http://ServerImpl/", "ONCommandsImplService");
+                    ONStore = Service.create(new URL("http://localhost:8200/ONStore?wsdl"), ONQName);
+
+                    QName BCQName =  new QName("http://ServerImpl/", "BCCommandsImplService");
+                    BCStore = Service.create(new URL("http://localhost:8100/BCStore?wsdl"),BCQName);
+
+
+
+                    if(userLocation.equals("QC"))
+                        store = QCStore.getPort(SOAPInterface.class);
+                    if(userLocation.equals("BC"))
+                        store = BCStore.getPort(SOAPInterface.class);
+                    if(userLocation.equals("ON"))
+                        store = ONStore.getPort(SOAPInterface.class);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -235,7 +258,7 @@ public class serverUser {
                     + returnMessage + " ------------------- \n";
             writeLog(username, logMessage);
         }catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
