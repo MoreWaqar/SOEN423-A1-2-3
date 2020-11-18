@@ -40,7 +40,7 @@ public class QCServer {
 //
 //            orb.run();
             QCCommandsImpl store = new QCCommandsImpl();
-            Endpoint endpoint = Endpoint.publish("http://localhost:8300/QCStore", store);
+//            Endpoint endpoint = Endpoint.publish("http://localhost:8300/QCStore", store);
             Runnable task = () -> {
                 receive(store);
             };

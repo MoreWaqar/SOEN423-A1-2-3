@@ -321,3 +321,63 @@ addItem Executed on newly added item by BCM1001 | Modifications successfully mad
  ID | Item Name | Qty 
 2000 | tea | 50 | 10
 
+
+addItem Executed on newly added item by BCM1001 | Modifications successfully made to Server BC | Updated Values 
+ ID | Item Name | Qty 
+2000 | tea | 50 | 20
+
+User BCM1001 accessed list item at BC 
+ The following message was shown : 
+ ID | Item Name | Qty 
+1200 | RICH | 2
+
+1012 | Coke_Zero | 12
+
+1023 | Coke_Green | 23
+
+1034 | Coke | 11
+
+1045 | Diet_Pepsi | 19
+
+1100 | RICH | 2
+
+2000 | tea | 50
+
+1085 | AB_Cola | 0
+
+1061 | BC_Cola | 501
+
+1060 | Pepsi | 98
+
+ 
+ ------------------- 
+(11/17/2020 at 03:46) 
+removeItem Executed on existing item by BCM1001 | Modifications successfully made to Server BC |Updated Values 
+ ID | Item Name | Qty 
+2000 | tea | 30 | 20
+
+User BCM1001 accessed list item at BC 
+ The following message was shown : 
+ ID | Item Name | Qty 
+1200 | RICH | 2
+
+1012 | Coke_Zero | 12
+
+1023 | Coke_Green | 23
+
+1034 | Coke | 11
+
+1045 | Diet_Pepsi | 19
+
+1100 | RICH | 2
+
+2000 | tea | 30
+
+1085 | AB_Cola | 0
+
+1061 | BC_Cola | 501
+
+1060 | Pepsi | 98
+
+ 
+ ------------------- 

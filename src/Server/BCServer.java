@@ -35,7 +35,7 @@ public class BCServer {
 //
 //            orb.run();
               BCCommandsImpl store = new BCCommandsImpl();
-              Endpoint endpoint = Endpoint.publish("http://localhost:8100/BCStore", store);
+//              Endpoint endpoint = Endpoint.publish("http://localhost:8100/BCStore", store);
               Runnable task = () -> {
                   receive(store);
               };

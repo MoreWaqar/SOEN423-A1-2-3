@@ -42,7 +42,7 @@ public class ONServer {
 //            orb.run();
 
             ONCommandsImpl store = new ONCommandsImpl();
-            Endpoint endpoint = Endpoint.publish("http://localhost:8200/ONStore", store);
+//            Endpoint endpoint = Endpoint.publish("http://localhost:8200/ONStore", store);
             Runnable task = () -> {
                 receive(store);
             };

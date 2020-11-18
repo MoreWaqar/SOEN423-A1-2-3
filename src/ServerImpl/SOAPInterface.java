@@ -1,11 +1,7 @@
 package ServerImpl;
 
 
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
 
-@WebService
-@SOAPBinding(style = SOAPBinding.Style.RPC)
 public interface SOAPInterface {
 
     public String addItem(String managerID, String itemID, String itemName,int qty, int price);

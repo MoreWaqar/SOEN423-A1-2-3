@@ -3,8 +3,6 @@ import Model.Customer;
 import Model.Item;
 import Model.Purchase;
 
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,8 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.net.*;
 
-@WebService(endpointInterface = "ServerImpl.SOAPInterface")
-@SOAPBinding(style = SOAPBinding.Style.RPC)
+
 public class QCCommandsImpl implements SOAPInterface {
 
     private Map<String, Item> Stock;
